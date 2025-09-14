@@ -1,0 +1,118 @@
+<!-- TOP NAVBAR -->
+<nav class="navbar bg-purple-600 text-white shadow-md px-4 py-2 fixed top-0 left-0 right-0 z-50">
+  <div class="container mx-auto flex items-center gap-4">
+    <!-- LEFT: Brand -->
+    <div class="flex items-center gap-2">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+  <path d="M4.5 6.375a4.125 4.125 0 1 1 8.25 0 4.125 4.125 0 0 1-8.25 0ZM14.25 8.625a3.375 3.375 0 1 1 6.75 0 3.375 3.375 0 0 1-6.75 0ZM1.5 19.125a7.125 7.125 0 0 1 14.25 0v.003l-.001.119a.75.75 0 0 1-.363.63 13.067 13.067 0 0 1-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 0 1-.364-.63l-.001-.122ZM17.25 19.128l-.001.144a2.25 2.25 0 0 1-.233.96 10.088 10.088 0 0 0 5.06-1.01.75.75 0 0 0 .42-.643 4.875 4.875 0 0 0-6.957-4.611 8.586 8.586 0 0 1 1.71 5.157v.003Z" />
+</svg>
+
+      <span class="font-semibold text-lg">DatingApp</span>
+    </div>
+
+    <!-- CENTER: Tabs (desktop only) -->
+    <div class="hidden md:flex flex-1 justify-center">
+      <div class="flex gap-6 text-sm">
+        <a class="font-semibold border-b-2 border-white pb-1">Matches</a>
+        <a class="opacity-80 hover:opacity-100 hover:border-b-2 hover:border-white pb-1">Lists</a>
+        <a class="opacity-80 hover:opacity-100 hover:border-b-2 hover:border-white pb-1">Messages</a>
+      </div>
+    </div>
+
+    <div class="flex items-center gap-2">
+      @if (accountService.currentUser() ;as user) {
+<!-- Logged-in dropdown (replace your existing dropdown block) -->
+<div class="dropdown relative">
+  <div tabindex="0" role="button" class="flex items-center text-white text-sm gap-3 cursor-pointer">
+    <img src="/user.png" alt="user-avatar" class="w-8 h-8 rounded-full">
+    <span>{{user.displayName}}</span>
+  </div>
+
+  <!-- ensure background is light, text is dark, and z-index is high -->
+  <ul tabindex="0"
+      class="dropdown-content dropdown-end menu menu-compact bg-base-100 text-black rounded-box w-52 p-2 shadow-lg mt-2 z-50">
+    <li><a class="text-black">Edit Profile</a></li>
+    <li><a class="text-black" (click)="logout()">Logout</a></li>
+  </ul>
+</div>
+      } @else {
+         <form #loginform="ngForm" (ngSubmit)="login()" class="flex items-center gap-2">
+        <input
+        [(ngModel)]="creds.email" 
+        name="email"
+         type="email"
+          placeholder="Email" required
+               class="input input-sm w-36 bg-white text-black" />
+        <input 
+        [(ngModel)]="creds.password" 
+        name="password"
+        type="password" 
+        placeholder="Password" required
+               class="input input-sm w-28 bg-white text-black" />
+        <button type="submit"
+                class="btn btn-sm bg-pink-500 border-none hover:bg-pink-600 text-white">
+          Login
+        </button>
+      </form>
+      }
+     
+
+      
+
+      <!-- Theme toggle -->
+      <label class="swap swap-rotate ml-3">
+        <input type="checkbox" class="theme-controller" value="dark" />
+        <!-- Sun -->
+        <svg class="swap-on w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none"
+             viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M12 3v2m0 14v2m9-9h-2M5 12H3m15.364-6.364l-1.414 1.414M7.05 16.95l-1.414 1.414"/>
+        </svg>
+        <!-- Moon -->
+        <svg class="swap-off w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none"
+             viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
+        </svg>
+      </label>
+    </div>
+  </div>
+</nav>
+
+<!-- Spacer so content isn’t hidden under fixed navbar -->
+<div class="h-16 md:h-20"></div>
+
+
+
+<!-- MOBILE: Fixed bottom tab nav -->
+<div class="fixed bottom-0 left-0 right-0 md:hidden bg-purple-600 text-white border-t shadow-inner z-40">
+  <div class="flex justify-around text-sm">
+    <a class="w-full py-2 text-center">
+      <div class="flex flex-col items-center">
+        <svg class="h-5 w-5 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M5.121 17.804A9 9 0 1118.879 6.196"/>
+        </svg>
+        <span>Matches</span>
+      </div>
+    </a>
+    <a class="w-full py-2 text-center">
+      <div class="flex flex-col items-center">
+        <svg class="h-5 w-5 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+        <span>Lists</span>
+      </div>
+    </a>
+    <a class="w-full py-2 text-center">
+      <div class="flex flex-col items-center">
+        <svg class="h-5 w-5 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M8 10h.01M12 10h.01M16 10h.01M21 12c0 3.866-3.582 7-8 7-1.07 0-2.09-.158-3-.444L3 21l1.444-6.444C3.158 12.09 3 11.07 3 10c0-4.418 3.134-8 7-8s7 3.582 7 8z"/>
+        </svg>
+        <span>Messages</span>
+      </div>
+    </a>
+  </div>
+</div>
