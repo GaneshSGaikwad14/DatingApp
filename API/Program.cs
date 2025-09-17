@@ -34,6 +34,9 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 var app = builder.Build();
 
+app.UseMiddleware<API.Middelewares.ExceptionMiddleware>();
+
+
 app.UseCors(policy =>
     policy.AllowAnyHeader()
           .AllowAnyMethod()
